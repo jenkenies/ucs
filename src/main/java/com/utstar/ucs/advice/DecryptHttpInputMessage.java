@@ -42,12 +42,10 @@ public class DecryptHttpInputMessage implements HttpInputMessage {
         // 未加密内容
         if (secretKeyConfig.isOpen() && content.startsWith("{")) {
             // 必须加密
-            if (decrypt.required()) {
-                log.error("not support unencrypted content:{}", content);
-                throw new EncryptRequestException("not support unencrypted content");
-            }
-            log.info("Unencrypted without decryption:{}", content);
+            log.error("not support unencrypted content:{}", content);
             decryptBody = content;
+            throw new EncryptRequestException("not support unencrypted content");
+            //log.info("Unencrypted without decryption:{}", content);
         } else {
             StringBuilder json = new StringBuilder();
             content = content.replaceAll(" ", "+");

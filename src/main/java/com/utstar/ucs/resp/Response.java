@@ -1,5 +1,8 @@
 package com.utstar.ucs.resp;
 
+
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -18,11 +21,10 @@ import lombok.Data;
 @ApiModel(value="ucs return object",description="respose")
 public class Response<T> {
 
-    @ApiModelProperty(value="return code",name="code",example="200")
+    @ApiModelProperty(value="return code",name="code",example="0")
     private Integer code;
     @ApiModelProperty(value="return msg",name="msg",example="success")
     private String msg;
-    @ApiModelProperty(value="detail data",name="data",example="ucs object")
-    private T data;
-
+    @ApiModelProperty(value="detail subject",name="subject",example="ucs object")
+    private T subject;
 }

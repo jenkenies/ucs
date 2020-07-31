@@ -4,6 +4,7 @@ import com.utstar.ucs.annotation.Encrypt;
 import com.utstar.ucs.conf.SecretKeyConfig;
 import com.utstar.ucs.util.AESEncryptAndDecrypt;
 import com.utstar.ucs.util.JsonUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import java.lang.reflect.Method;
 import java.util.Objects;
 
-
+@Slf4j
 @ControllerAdvice
 public class EncryptResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
-    private Logger log = LoggerFactory.getLogger(this.getClass());
 
     private boolean encrypt;
 

@@ -1,7 +1,9 @@
 package com.utstar.ucs.util;
 
+import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -18,6 +20,24 @@ public final class RedisUtil {
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
 
+
+    public RedisTemplate<String, Object> getRedisTemplate(){
+        FastJsonRedisSerializer fastJsonRedisSerializer = new FastJsonRedisSerializer(Object.class);
+        redisTemplate.setKeySerializer(fastJsonRedisSerializer);
+        redisTemplate.setValueSerializer(fastJsonRedisSerializer);
+        redisTemplate.setHashKeySerializer(fastJsonRedisSerializer);
+        redisTemplate.setHashValueSerializer(fastJsonRedisSerializer);
+        redisTemplate.afterPropertiesSet();
+        return redisTemplate;
+    }
+
+
+    public Object getKeySerializer(String key) {
+        return key == null ? null : getRedisTemplate().opsForValue().get(key);
+    }
+
+    //禁止使用
+    @Deprecated
     public Set<String> keys(String keys){
         try {
             return redisTemplate.keys(keys);
@@ -208,7 +228,7 @@ public final class RedisUtil {
             redisTemplate.opsForHash().put(key, item, value);
             return true;
         } catch (Exception e) {
-            log.error("hmset[{}]", e.fillInStackTrace());
+            log.error("hset[{}]", e.fillInStackTrace());
             return false;
         }
     }
