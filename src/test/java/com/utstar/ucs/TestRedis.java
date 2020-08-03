@@ -12,14 +12,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
-@RunWith(SpringRunner.class)
-@SpringBootTest
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
 public class TestRedis {
 
     @Autowired
     private RedisUtil redisUtil;
 
-    @Test
+    //@Test
     public void testSet() {
         try{
             Map<String, Object> map = new HashMap<>();
